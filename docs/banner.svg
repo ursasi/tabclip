@@ -1,0 +1,54 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TabClip — Copy every tab you picked, in one right-click.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E1B4B"/>
+      <stop offset="0.55" stop-color="#312E81"/>
+      <stop offset="1" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="iconBg" x1="96" y1="80" x2="320" y2="304" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#9333EA"/>
+    </linearGradient>
+    <linearGradient id="title" x1="430" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#C7D2FE"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="22" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="1.6" fill="#A5B4FC" fill-opacity="0.10"/>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="320" rx="28" fill="url(#bg)"/>
+  <rect width="1280" height="320" rx="28" fill="url(#dots)"/>
+  <circle cx="1120" cy="40" r="180" fill="#7C3AED" fill-opacity="0.28" filter="url(#glow)"/>
+
+  <!-- icon -->
+  <g filter="url(#glow)">
+    <rect x="72" y="72" width="176" height="176" rx="41" fill="url(#iconBg)"/>
+  </g>
+  <rect x="142" y="90" width="88" height="92" rx="13" fill="#FFFFFF" fill-opacity="0.38"/>
+  <rect x="119" y="106" width="93" height="95" rx="14" fill="#FFFFFF" fill-opacity="0.60"/>
+  <rect x="93" y="123" width="97" height="102" rx="15" fill="#FFFFFF"/>
+  <rect x="110" y="147" width="63" height="9" rx="4.5" fill="#4F46E5"/>
+  <rect x="110" y="168" width="49" height="9" rx="4.5" fill="#4F46E5"/>
+  <rect x="110" y="189" width="35" height="9" rx="4.5" fill="#4F46E5"/>
+
+  <!-- wordmark -->
+  <text x="300" y="150" font-family="'Inter','Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="86" font-weight="800" fill="url(#title)" letter-spacing="-2">TabClip</text>
+  <text x="302" y="196" font-family="'Inter','Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="25" font-weight="500" fill="#C7D2FE" fill-opacity="0.92">Copy every tab you picked — in one right-click.</text>
+  <text x="302" y="228" font-family="'Inter','Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="19" font-weight="400" fill="#A5B4FC" fill-opacity="0.85">多选标签页 · 右键 · 一键复制这些标签页的 URL</text>
+
+  <!-- pills -->
+  <g font-family="'Inter','Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="15" font-weight="600">
+    <rect x="302" y="252" width="132" height="34" rx="17" fill="#6366F1" fill-opacity="0.22" stroke="#818CF8" stroke-opacity="0.55"/>
+    <text x="368" y="274" fill="#E0E7FF" text-anchor="middle">Chrome 150+</text>
+    <rect x="446" y="252" width="140" height="34" rx="17" fill="#6366F1" fill-opacity="0.22" stroke="#818CF8" stroke-opacity="0.55"/>
+    <text x="516" y="274" fill="#E0E7FF" text-anchor="middle">Manifest V3</text>
+    <rect x="598" y="252" width="86" height="34" rx="17" fill="#6366F1" fill-opacity="0.22" stroke="#818CF8" stroke-opacity="0.55"/>
+    <text x="641" y="274" fill="#E0E7FF" text-anchor="middle">MIT</text>
+  </g>
+</svg>
