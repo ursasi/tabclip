@@ -5,7 +5,8 @@
 # TabClip
 
 **Copy every tab you picked — in one right-click.**
-多选标签页 → 右键 → 一键复制这些标签页的 URL。
+
+<a href="README.zh-CN.md">简体中文</a> · **English**
 
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-6366F1.svg" alt="License: MIT"></a>
 <img src="https://img.shields.io/badge/Manifest-V3-7C3AED.svg" alt="Manifest V3">
@@ -13,83 +14,81 @@
 <img src="https://img.shields.io/badge/dependencies-0-22C55E.svg" alt="Zero dependencies">
 <img src="https://img.shields.io/badge/network%20requests-none-22C55E.svg" alt="No network requests">
 
-**简体中文** · <a href="README.en.md">English</a>
-
 </div>
 
 ---
 
-## 😤 为什么会有这个小工具
+## 😤 Why TabClip exists
 
-Chrome 允许你用 `⌘` / `Ctrl` / `Shift` **一次选中多个标签页**，但它**没有提供任何办法把选中的这些标签页的 URL 复制出来**：
+Chrome lets you select multiple tabs with `⌘` / `Ctrl` / `Shift`, but it gives you **no way to copy the URLs of the tabs you selected**:
 
-- 在标签上右键 → 只有「复制」**当前这一个**链接
-- 想批量拿地址，只能一个标签一个标签手点手抄
-- 现成的扩展大多很重：弹窗、接管新标签页、要一堆权限，而且**很多把菜单塞在「网页右键」里**，而不是你想点的「标签栏右键」
-- 更要命的是，**在 Chrome 150 之前，第三方扩展根本没法往标签栏右键菜单里加东西**
+- Right-clicking a tab only offers "Copy" for **that one** link
+- Batch-copying means clicking and copying one tab at a time
+- Most existing extensions are heavyweight — popups, new-tab takeovers, broad permissions — and **many put their menu in the page right-click menu**, not where you'd naturally reach for it: the tab strip
+- Worse, **before Chrome 150, extensions couldn't add anything to the tab-strip context menu at all**
 
-TabClip 就只补这一个空缺 —— **不弹窗、不跳转、不收集数据**，只在标签栏的右键菜单里加上两行，点一下就把你选中的标签页地址复制走。
+TabClip fills exactly that one gap — **no popup, no redirect, no telemetry**. It adds a couple of rows to the tab-strip right-click menu and copies the addresses of the tabs you picked.
 
 > [!NOTE]
-> 标签栏右键菜单依赖 Chrome 150+ 的 `chrome.contextMenus` `"tab"` 上下文。低于该版本时，TabClip 仍可通过「网页右键 / 工具栏图标 / 快捷键」使用。
+> The tab-strip menu relies on Chrome 150+'s `chrome.contextMenus` `"tab"` context. On older versions, TabClip still works via the page right-click menu, the toolbar icon, and a keyboard shortcut.
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="TabClip 出现在标签栏右键菜单中" width="640">
+  <img src="docs/screenshot.png" alt="TabClip in the tab-strip right-click menu" width="640">
   <br>
-  <sub>标签栏右键 → <b>TabClip</b> → 复制选中标签页的 URL</sub>
+  <sub>Right-click the tab strip → <b>TabClip</b> → Copy selected tab URLs</sub>
 </p>
 
 > [!TIP]
-> Chrome 会把扩展提供的标签栏菜单项收进**以扩展名命名的子菜单**里，所以你会看到 `TabClip ›` 再展开。这样多个扩展也不会把原生菜单塞爆。
+> Chrome nests extension items under a submenu **named after the extension**, hence the `TabClip ›` you see above. That keeps every extension from cluttering the native menu.
 
-## ✨ 功能
+## ✨ Features
 
-| | 功能 | 说明 |
+| | Feature | Details |
 |---|---|---|
-| 🎯 | **只复制选中的标签** | `⌘`/`Ctrl` 间隔选、`Shift` 连续选，然后在**已选中的标签**上右键 |
-| 🔤 | **两种格式** | 纯 URL（一行一个）/ `标题 + URL` |
-| 🔢 | **按标签栏顺序** | 按标签从左到右输出，不是按点击顺序 |
-| 🖱️ | **三个入口** | 标签栏右键 · 网页右键 · 工具栏图标 |
-| ⌨️ | **快捷键** | `Alt+Shift+C` |
-| ✅ | **即时反馈** | 成功后工具栏角标短暂显示复制了几个；失败显示红色 `!` |
-| 🔒 | **隐私友好** | 零网络请求，零数据收集，只用必要的 4 个权限 |
-| 🪶 | **零依赖** | 纯原生 JS，无需构建、无需打包 |
+| 🎯 | **Only the selected tabs** | Select with `⌘`/`Ctrl`, then right-click one of the **selected** tabs |
+| 🔤 | **Two formats** | Plain URLs (one per line) or `Title + URL` |
+| 🔢 | **In tab-strip order** | Sorted left-to-right, not by click order |
+| 🖱️ | **Three entry points** | Tab-strip menu · page menu · toolbar icon |
+| ⌨️ | **Keyboard shortcut** | `Alt+Shift+C` |
+| ✅ | **Instant feedback** | The toolbar badge briefly shows how many tabs were copied; a red `!` on failure |
+| 🔒 | **Privacy-friendly** | Zero network requests, zero data collection, only 4 permissions |
+| 🪶 | **Zero dependencies** | Plain JavaScript, no build step, no bundling |
 
-## 🚀 安装
+## 🚀 Install
 
 <details open>
-<summary><b>方式一：从 Release 下载（推荐给普通用户）</b></summary>
+<summary><b>Option 1 — Download the release (recommended for users)</b></summary>
 
-1. 打开 [**Releases**](https://github.com/ursasi/tabclip/releases/latest)，下载 `TabClip-x.y.z.zip`
-2. 解压到任意文件夹
-3. 打开 `chrome://extensions` → 右上角打开 **开发者模式**
-4. 点 **加载已解压的扩展程序** → 选解压出来的文件夹
+1. Open [**Releases**](https://github.com/ursasi/tabclip/releases/latest) and download `TabClip-x.y.z.zip`
+2. Unzip it anywhere
+3. Open `chrome://extensions` → turn on **Developer mode** (top-right)
+4. Click **Load unpacked** → pick the unzipped folder
 
 </details>
 
 <details>
-<summary><b>方式二：从源码（推荐给开发者）</b></summary>
+<summary><b>Option 2 — From source (recommended for developers)</b></summary>
 
 ```bash
 git clone https://github.com/ursasi/tabclip.git
 ```
 
-然后 `chrome://extensions` → 开发者模式 → **加载已解压的扩展程序** → 选 `tabclip/` 目录。
+Then `chrome://extensions` → Developer mode → **Load unpacked** → select the `tabclip/` folder.
 
 </details>
 
 > [!IMPORTANT]
-> 扩展需要 **Chrome 150+** 才有标签栏右键菜单。`chrome://extensions` 里改代码后点扩展卡片上的 **↻** 重新加载即可生效。
+> Chrome 150+ is required for the tab-strip menu. After editing the code, click the **↻** on the extension card in `chrome://extensions` to reload.
 
-## 🧑‍💻 使用
+## 🧑‍💻 Usage
 
 ```text
-1. 用 ⌘ / Ctrl / Shift 选中多个标签页
-2. 在【已选中的标签】上点右键
-3. 选「复制选中标签页的 URL」
+1. Select several tabs with ⌘ / Ctrl / Shift
+2. Right-click one of the SELECTED tabs
+3. Choose "Copy selected tab URLs"
 ```
 
-复制出来长这样：
+The clipboard then looks like:
 
 ```text
 https://github.com/ursasi/tabclip
@@ -99,71 +98,71 @@ https://developer.chrome.com/docs/extensions/reference/api/tabs
 
 ```mermaid
 flowchart LR
-    A["多选标签页<br/>⌘ / Ctrl / Shift"] --> B["在已选中的标签上右键"]
-    B --> C["TabClip<br/>复制选中标签页的 URL"]
-    C --> D["剪贴板<br/>一行一个 URL"]
+    A["Select multiple tabs<br/>⌘ / Ctrl / Shift"] --> B["Right-click a selected tab"]
+    B --> C["TabClip<br/>Copy selected tab URLs"]
+    C --> D["Clipboard<br/>one URL per line"]
 ```
 
 > [!WARNING]
-> **右键必须落在「已选中」的标签上。** 这是 Chrome 自身的行为：右键一个未选中的标签，会把当前的多选收缩成它自己。想复制多个，就点已经高亮的那几个中的一个。
+> **The right-click must land on a selected tab.** That's Chrome's own behavior: right-clicking an *unselected* tab collapses the multi-selection down to just that tab. To copy several, right-click one of the already-highlighted ones.
 
-## 🧠 原理 / How it works
+## 🧠 How it works
 
-1. `chrome.contextMenus.create({ contexts: ["tab"] })` —— 把菜单项注册进标签栏右键菜单（[Chrome 150+](https://developer.chrome.com/docs/extensions/whats-new)）
-2. 点击回调拿到右键所在窗口的 `windowId`
-3. `chrome.tabs.query({ highlighted: true, windowId })` —— 取出该窗口**所有高亮/选中**的标签，按 `index` 排序
-4. 文本交给 **offscreen 文档**写入剪贴板（MV3 的 service worker 没有 DOM，无法直接调用剪贴板 API）
+1. `chrome.contextMenus.create({ contexts: ["tab"] })` — registers the items in the tab-strip menu ([Chrome 150+](https://developer.chrome.com/docs/extensions/whats-new))
+2. The click handler gets the `windowId` of the window where the right-click happened
+3. `chrome.tabs.query({ highlighted: true, windowId })` — reads **every highlighted/selected tab** in that window, sorted by `index`
+4. The text is handed to an **offscreen document** to write to the clipboard (an MV3 service worker has no DOM and can't call the clipboard API directly)
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor U as 用户
+    actor U as User
     participant M as contextMenus
     participant B as background.js<br/>(service worker)
     participant O as offscreen.html
 
-    U->>M: 选中多个标签 → 右键 → 复制选中标签页的 URL
+    U->>M: select tabs → right-click → Copy selected tab URLs
     M->>B: onClicked(info, tab)
     B->>B: tabs.query({ highlighted: true, windowId })
     B->>O: runtime.sendMessage(text)
     O->>O: document.execCommand("copy")
     O-->>B: { ok: true }
-    B-->>U: 角标显示已复制数量 ✅
+    B-->>U: badge shows the number copied ✅
 ```
 
-## 🔐 权限说明
+## 🔐 Permissions
 
-TabClip 只申请 4 个权限，全部是完成这件事的最小集合：
+TabClip requests only 4 permissions — the minimum needed for exactly this job:
 
-| 权限 | 用途 |
+| Permission | Why |
 |---|---|
-| `tabs` | 读取标签页的 `url` / `title` / `index`，以及哪些标签处于「选中」状态 |
-| `contextMenus` | 往标签栏 / 网页右键菜单注册条目 |
-| `clipboardWrite` | 把结果写入剪贴板 |
-| `offscreen` | 创建隐藏文档来执行剪贴板写入（MV3 service worker 无 DOM） |
+| `tabs` | Read each tab's `url` / `title` / `index`, and which tabs are selected |
+| `contextMenus` | Register entries in the tab-strip / page right-click menus |
+| `clipboardWrite` | Write the result to the clipboard |
+| `offscreen` | Create a hidden document to perform the clipboard write (no DOM in an MV3 service worker) |
 
-**没有** 任何 host 权限，**没有** 任何网络请求，**不在** 任何页面注入内容脚本。
+**No** host permissions, **no** network requests, and **no** content scripts injected into any page.
 
-## 📁 文件结构
+## 📁 Project structure
 
 ```text
 tabclip/
-├── manifest.json        # MV3 清单（权限、命令、图标）
-├── background.js        # 注册菜单 · 取选中标签 · 写剪贴板
-├── offscreen.html       # 剪贴板用的隐藏文档
-├── offscreen.js         # 实际的复制逻辑
+├── manifest.json        # MV3 manifest (permissions, command, icons)
+├── background.js        # register menus · read selected tabs · write clipboard
+├── offscreen.html       # hidden document used for the clipboard
+├── offscreen.js         # the actual copy logic
 ├── icons/               # 16 / 32 / 48 / 128 / 256 PNG
-├── tools/gen_icons.py   # 图标生成脚本（纯标准库，可复现）
-└── docs/banner.svg      # README 头图
+├── tools/gen_icons.py   # reproducible icon generator (stdlib only)
+└── docs/banner.svg      # README banner
 ```
 
-## 🛠️ 开发
+## 🛠️ Development
 
-改完代码后在 `chrome://extensions` 点扩展卡片上的 **↻ 重新加载**。
+After changing the code, click **↻** on the extension card in `chrome://extensions` to reload.
 
-调试：在 `chrome://extensions` 打开本扩展的 **Service Worker** 控制台 —— `background.js` 的日志（例如 `写剪贴板失败:`）都在那里。
+Debugging: open the extension's **Service Worker** console from `chrome://extensions` — every log from `background.js` (e.g. `写剪贴板失败:`) shows up there.
 
-重新生成图标：
+Regenerate the icons:
 
 ```bash
 python3 tools/gen_icons.py
@@ -172,47 +171,47 @@ python3 tools/gen_icons.py
 ## ❓ FAQ
 
 <details>
-<summary><b>菜单里看不到 TabClip？</b></summary>
+<summary><b>I don't see TabClip in the menu.</b></summary>
 
-Chrome 版本低于 150。升级 Chrome，或改用 **网页右键 / 工具栏图标 / `Alt+Shift+C`**。
-
-</details>
-
-<details>
-<summary><b>为什么只复制出来一个 URL？</b></summary>
-
-右键时点在**未选中**的标签上了，Chrome 会把多选收缩成它自己。请右键**已高亮**的标签。
+Your Chrome is older than 150. Update Chrome, or use the **page right-click menu / toolbar icon / `Alt+Shift+C`** instead.
 
 </details>
 
 <details>
-<summary><b>点了没反应？</b></summary>
+<summary><b>Only one URL got copied.</b></summary>
 
-打开 Service Worker 控制台看报错。多为剪贴板被系统或其他软件临时占用，重试即可。
+You right-clicked an **unselected** tab, so Chrome collapsed the selection down to that single tab. Right-click one of the **highlighted** tabs instead.
 
 </details>
 
 <details>
-<summary><b>和 Tab Copy 这类扩展有什么区别？</b></summary>
+<summary><b>Nothing happens when I click it.</b></summary>
 
-Tab Copy 等主打「导出**整个窗口 / 全部**标签」，格式多（JSON、CSV…），功能全但较重。TabClip 只做一件事：**复制你选中的那几个**，一个动作，零干扰。两者可以共存。
+Open the Service Worker console and check for errors. Most of the time the clipboard is momentarily locked by the OS or another app — just try again.
+
+</details>
+
+<details>
+<summary><b>How is this different from Tab Copy and friends?</b></summary>
+
+Extensions like Tab Copy focus on exporting the **whole window / all tabs** with many formats (JSON, CSV, …) — powerful but heavier. TabClip does one thing only: **copy the few tabs you selected**, in a single action, with zero friction. They can coexist happily.
 
 </details>
 
 ## 🗺️ Roadmap
 
-- [x] 标签栏右键菜单（Chrome 150+）
-- [x] URL / 标题 + URL 两种格式
-- [x] 工具栏图标 + 快捷键
-- [ ] 设置页：默认格式、分隔符、去重、排除固定标签
-- [ ] Markdown / JSON 输出
-- [ ] 多语言（`_locales`）
+- [x] Tab-strip right-click menu (Chrome 150+)
+- [x] URL / Title + URL formats
+- [x] Toolbar icon + keyboard shortcut
+- [ ] Options page: default format, separator, de-duplication, skip pinned tabs
+- [ ] Markdown / JSON output
+- [ ] Internationalization (`_locales`)
 
-## 🤝 贡献
+## 🤝 Contributing
 
-欢迎 PR / Issue。提交前请确保：**零依赖、只在必要处动代码、不引入任何网络请求**。
+PRs and issues are welcome. Before submitting, please keep it: **zero dependencies, minimal surface area, and no network requests.**
 
-## 📄 许可
+## 📄 License
 
 [MIT](LICENSE) © 2026 Shuohua Zhang ([@ursasi](https://github.com/ursasi))
 
@@ -220,7 +219,7 @@ Tab Copy 等主打「导出**整个窗口 / 全部**标签」，格式多（JSON
 
 <div align="center">
 
-**如果这个小工具帮你省了几次手点，点个 ⭐ 就是最大的动力。**
+**If this little tool saved you a few clicks, a ⭐ is the best motivation.**
 
 <sub>Made with ❤️ and a deep hatred of copying tabs one by one.</sub>
 
