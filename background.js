@@ -7,17 +7,20 @@
 // 点击后：取右键所在窗口里所有「高亮/选中」的标签 -> 按标签顺序拼成文本 -> 写剪贴板。
 
 const MENUS = [
-  // [id, 标题, 是否带标题, context]
-  ["copy-urls-tab", "复制选中标签页的 URL", false, "tab"],
-  ["copy-titles-tab", "复制选中标签页的标题和 URL", true, "tab"],
-  ["copy-urls-page", "复制选中标签页的 URL", false, "page"],
-  ["copy-titles-page", "复制选中标签页的标题和 URL", true, "page"],
+  // [id, i18n message key, 是否带标题, context]
+  ["copy-urls-tab", "menuCopyUrls", false, "tab"],
+  ["copy-titles-tab", "menuCopyTitlesAndUrls", true, "tab"],
+  ["copy-urls-page", "menuCopyUrls", false, "page"],
+  ["copy-titles-page", "menuCopyTitlesAndUrls", true, "page"],
 ];
+
+// 按浏览器界面语言取文案（Chrome 自动选择 _locales 里最匹配的一种）
+const t = (key) => chrome.i18n.getMessage(key) || key;
 
 function buildMenus() {
   chrome.contextMenus.removeAll(() => {
-    for (const [id, title, , ctx] of MENUS) {
-      chrome.contextMenus.create({ id, title, contexts: [ctx] }, () => {
+    for (const [id, key, , ctx] of MENUS) {
+      chrome.contextMenus.create({ id, title: t(key), contexts: [ctx] }, () => {
         // 旧版 Chrome 不支持 "tab" 上下文时会报错，忽略即可
         void chrome.runtime.lastError;
       });
@@ -77,7 +80,7 @@ async function ensureOffscreen() {
   creatingOffscreen = chrome.offscreen.createDocument({
     url: "offscreen.html",
     reasons: ["CLIPBOARD"],
-    justification: "把选中的标签页地址写入剪贴板",
+    justification: t("offscreenJustification"),
   });
   await creatingOffscreen;
   creatingOffscreen = null;

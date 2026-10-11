@@ -1,0 +1,30 @@
+{
+  "extName": {
+    "message": "TabClip — Copy selected tab URLs",
+    "description": "Extension name shown in Chrome."
+  },
+  "extDescription": {
+    "message": "Multi-select tabs, right-click, and copy their URLs in one click. Chrome 150+.",
+    "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
+  },
+  "actionTitle": {
+    "message": "TabClip — Copy selected tab URLs",
+    "description": "Tooltip of the toolbar icon."
+  },
+  "menuCopyUrls": {
+    "message": "Copy selected tab URLs",
+    "description": "Context menu item: copies only the URLs."
+  },
+  "menuCopyTitlesAndUrls": {
+    "message": "Copy selected tab titles + URLs",
+    "description": "Context menu item: copies title and URL pairs."
+  },
+  "commandCopySelected": {
+    "message": "Copy the selected tabs' URLs",
+    "description": "Keyboard shortcut description."
+  },
+  "offscreenJustification": {
+    "message": "Write the selected tab URLs to the clipboard",
+    "description": "Reason shown for creating the offscreen document."
+  }
+}

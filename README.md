@@ -33,7 +33,7 @@ TabClip fills exactly that one gap — **no popup, no redirect, no telemetry**. 
 > The tab-strip menu relies on Chrome 150+'s `chrome.contextMenus` `"tab"` context. On older versions, TabClip still works via the page right-click menu, the toolbar icon, and a keyboard shortcut.
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="TabClip in the tab-strip right-click menu" width="640">
+  <img src="docs/screenshot.png" alt="TabClip in the tab-strip right-click menu" width="720">
   <br>
   <sub>Right-click the tab strip → <b>TabClip</b> → Copy selected tab URLs</sub>
 </p>
@@ -143,17 +143,43 @@ TabClip requests only 4 permissions — the minimum needed for exactly this job:
 
 **No** host permissions, **no** network requests, and **no** content scripts injected into any page.
 
+## 🌐 Localization
+
+TabClip ships with **English and Simplified Chinese** UI strings and **follows your browser's UI language automatically** — there's no setting to flip.
+
+```text
+_locales/
+├── en/messages.json        # fallback (default_locale)
+└── zh_CN/messages.json
+```
+
+How Chrome decides which language to show:
+
+1. `manifest.json` declares `"default_locale": "en"`.
+2. Chrome reads your **browser UI language** (the list in `chrome://settings/languages`) and looks for the closest matching folder under `_locales/`.
+3. `chrome.i18n.getMessage("menuCopyUrls")` returns that locale's string, and `__MSG_extName__` in the manifest is resolved the same way.
+4. If nothing matches, it falls back to `default_locale` — English.
+
+> [!NOTE]
+> The choice is based on the **browser UI language**, not the language of the page you're on. So with a Chinese Chrome you get Chinese menus even on English websites, and vice-versa.
+
+**Add another language:** copy `_locales/en/messages.json` to `_locales/<locale>/messages.json` (e.g. `ja`, `de`, `fr`), translate the `message` values — **keep the keys** — and reload the extension.
+
+**Check your current language:** open `chrome://settings/languages`, or run `chrome.i18n.getUILanguage()` in the extension's Service Worker console.
+
 ## 📁 Project structure
 
 ```text
 tabclip/
-├── manifest.json        # MV3 manifest (permissions, command, icons)
-├── background.js        # register menus · read selected tabs · write clipboard
-├── offscreen.html       # hidden document used for the clipboard
-├── offscreen.js         # the actual copy logic
-├── icons/               # 16 / 32 / 48 / 128 / 256 PNG
-├── tools/gen_icons.py   # reproducible icon generator (stdlib only)
-└── docs/banner.svg      # README banner
+├── manifest.json                 # MV3 manifest (permissions, command, icons)
+├── background.js                 # register menus · read selected tabs · write clipboard
+├── offscreen.html / offscreen.js # hidden document that performs the clipboard write
+├── _locales/                     # en + zh_CN UI strings
+├── icons/                        # 16 / 32 / 48 / 128 / 256 PNG
+├── tools/
+│   ├── gen_icons.py              # reproducible icon generator (stdlib only)
+│   └── annotate_screenshot.py    # builds docs/screenshot.png from screenshot-raw.png
+└── docs/                         # banner + screenshots
 ```
 
 ## 🛠️ Development
@@ -205,7 +231,7 @@ Extensions like Tab Copy focus on exporting the **whole window / all tabs** with
 - [x] Toolbar icon + keyboard shortcut
 - [ ] Options page: default format, separator, de-duplication, skip pinned tabs
 - [ ] Markdown / JSON output
-- [ ] Internationalization (`_locales`)
+- [x] Internationalization (`_locales`, English + Simplified Chinese)
 
 ## 🤝 Contributing
 

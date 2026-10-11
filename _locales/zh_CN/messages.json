@@ -1,0 +1,30 @@
+{
+  "extName": {
+    "message": "TabClip — 复制选中标签页 URL",
+    "description": "扩展名称。"
+  },
+  "extDescription": {
+    "message": "多选标签页，右键一键复制这些标签页的 URL。需要 Chrome 150+。",
+    "description": "扩展描述。"
+  },
+  "actionTitle": {
+    "message": "TabClip — 复制选中标签页 URL",
+    "description": "工具栏图标提示。"
+  },
+  "menuCopyUrls": {
+    "message": "复制选中标签页的 URL",
+    "description": "右键菜单项：只复制 URL。"
+  },
+  "menuCopyTitlesAndUrls": {
+    "message": "复制选中标签页的标题 + URL",
+    "description": "右键菜单项：复制标题和 URL。"
+  },
+  "commandCopySelected": {
+    "message": "复制选中标签页的 URL",
+    "description": "快捷键说明。"
+  },
+  "offscreenJustification": {
+    "message": "把选中的标签页地址写入剪贴板",
+    "description": "创建 offscreen 文档的理由。"
+  }
+}

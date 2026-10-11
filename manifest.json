@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "TabClip — 复制选中标签页 URL",
-  "version": "1.0.0",
-  "description": "多选标签页，右键一键复制这些标签页的 URL / 标题 + URL。Copy the tabs you picked, in one right-click.",
+  "name": "__MSG_extName__",
+  "version": "1.1.0",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "minimum_chrome_version": "150",
   "homepage_url": "https://github.com/ursasi/tabclip",
   "permissions": ["tabs", "contextMenus", "clipboardWrite", "offscreen"],
   "background": { "service_worker": "background.js" },
-  "action": { "default_title": "TabClip — 复制选中标签页 URL" },
+  "action": { "default_title": "__MSG_actionTitle__" },
   "icons": {
     "16": "icons/16.png",
     "32": "icons/32.png",
@@ -17,7 +18,7 @@
   "commands": {
     "copy-selected-urls": {
       "suggested_key": { "default": "Alt+Shift+C" },
-      "description": "复制选中标签页的 URL"
+      "description": "__MSG_commandCopySelected__"
     }
   }
 }

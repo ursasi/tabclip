@@ -34,7 +34,7 @@ TabClip 就只补这一个空缺 —— **不弹窗、不跳转、不收集数�
 > 标签栏右键菜单依赖 Chrome 150+ 的 `chrome.contextMenus` `"tab"` 上下文。低于该版本时，TabClip 仍可通过「网页右键 / 工具栏图标 / 快捷键」使用。
 
 <p align="center">
-  <img src="docs/screenshot.png" alt="TabClip 出现在标签栏右键菜单中" width="640">
+  <img src="docs/screenshot-raw.png" alt="TabClip 出现在标签栏右键菜单中" width="640">
   <br>
   <sub>标签栏右键 → <b>TabClip</b> → 复制选中标签页的 URL</sub>
 </p>
@@ -144,17 +144,43 @@ TabClip 只申请 4 个权限，全部是完成这件事的最小集合：
 
 **没有** 任何 host 权限，**没有** 任何网络请求，**不在** 任何页面注入内容脚本。
 
+## 🌐 语言 / Localization
+
+TabClip 内置**英文**和**简体中文**两套 UI 文案，并**自动跟随浏览器的界面语言**，不需要任何设置。
+
+```text
+_locales/
+├── en/messages.json        # 缺省语言（default_locale）
+└── zh_CN/messages.json
+```
+
+Chrome 判定显示哪种语言的流程：
+
+1. `manifest.json` 里声明 `"default_locale": "en"`
+2. Chrome 读取你的**浏览器界面语言**（`chrome://settings/languages` 里的列表），在 `_locales/` 下找最匹配的目录
+3. `chrome.i18n.getMessage("menuCopyUrls")` 返回该语言文案；manifest 里的 `__MSG_extName__` 也按同样规则解析
+4. 都不匹配时回退到 `default_locale`（英文）
+
+> [!NOTE]
+> 依据的是**浏览器界面语言**，不是当前网页的语言。所以中文版 Chrome 即使打开英文网站，菜单也是中文；反之亦然。
+
+**想加新语言**：把 `_locales/en/messages.json` 复制成 `_locales/<locale>/messages.json`（如 `ja`、`de`、`fr`），翻译 `message` 的值 —— **key 不要改** —— 然后重新加载扩展即可。
+
+**查看当前语言**：打开 `chrome://settings/languages`，或在扩展的 Service Worker 控制台里执行 `chrome.i18n.getUILanguage()`。
+
 ## 📁 文件结构
 
 ```text
 tabclip/
-├── manifest.json        # MV3 清单（权限、命令、图标）
-├── background.js        # 注册菜单 · 取选中标签 · 写剪贴板
-├── offscreen.html       # 剪贴板用的隐藏文档
-├── offscreen.js         # 实际的复制逻辑
-├── icons/               # 16 / 32 / 48 / 128 / 256 PNG
-├── tools/gen_icons.py   # 图标生成脚本（纯标准库，可复现）
-└── docs/banner.svg      # README 头图
+├── manifest.json                 # MV3 清单（权限、命令、图标）
+├── background.js                 # 注册菜单 · 取选中标签 · 写剪贴板
+├── offscreen.html / offscreen.js # 负责写入剪贴板的隐藏文档
+├── _locales/                     # en + zh_CN 文案
+├── icons/                        # 16 / 32 / 48 / 128 / 256 PNG
+├── tools/
+│   ├── gen_icons.py              # 可复现的图标生成脚本（纯标准库）
+│   └── annotate_screenshot.py    # 用 screenshot-raw.png 生成 docs/screenshot.png
+└── docs/                         # 头图 + 截图
 ```
 
 ## 🛠️ 开发
@@ -206,7 +232,7 @@ Tab Copy 等主打「导出**整个窗口 / 全部**标签」，格式多（JSON
 - [x] 工具栏图标 + 快捷键
 - [ ] 设置页：默认格式、分隔符、去重、排除固定标签
 - [ ] Markdown / JSON 输出
-- [ ] 多语言（`_locales`）
+- [x] 多语言（`_locales`，英文 + 简体中文）
 
 ## 🤝 贡献
 
