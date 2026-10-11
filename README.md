@@ -13,6 +13,8 @@
 <img src="https://img.shields.io/badge/dependencies-0-22C55E.svg" alt="Zero dependencies">
 <img src="https://img.shields.io/badge/network%20requests-none-22C55E.svg" alt="No network requests">
 
+**简体中文** · <a href="README.en.md">English</a>
+
 </div>
 
 ---
@@ -205,7 +207,6 @@ Tab Copy 等主打「导出**整个窗口 / 全部**标签」，格式多（JSON
 - [ ] 设置页：默认格式、分隔符、去重、排除固定标签
 - [ ] Markdown / JSON 输出
 - [ ] 多语言（`_locales`）
-- [ ] 发布到 Edge Add-ons（免费）
 
 ## 🤝 贡献
 
